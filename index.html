@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>НеКинемТочкаНет - Мы никогда не кидаем!</title>
+	<style type="text/css">
+		
+		@media screen and (min-width: 1000px) {
+
+			.bar {
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				width: 100%;
+				height: 50px;
+				background: #507CBA;
+			}
+			.bar .logo {
+				position: absolute;
+				top: 0px;
+				line-height: 50px;
+				left: 0px;
+				font-size: 24px;
+				color: white;
+				font-weight: 900;
+				font-family: "Segoe UI";
+				width: 300px;
+				text-align: center;
+				user-select: none;
+				text-shadow: 0 0 2px black;
+			}
+			.bar .searcher {
+				position: absolute;
+				width: 600px;
+				left: calc(300px + (50% - 150px)  - 300px );
+				top: 0px;
+				bottom: 0px;
+				height: 50px;
+			}
+			.bar .searcher .input-search {
+				position: absolute;
+				border: 1px solid rgba(0, 0, 0, 0.3);
+				background: rgba(255, 255, 255, 0.4);
+				width: calc(100% - 20px - 100px);
+				border-radius: 3px;
+				top: 5px;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				padding-left: 20px;
+				padding-right: 100px;
+				height: calc(40px - 6px - 2px);
+				outline: none;
+				font-size: 16px;
+			}
+			.bar .searcher .input-search::placeholder {
+				color: rgba(0, 0, 0, 0.3);
+				font-size: 14px;
+			}
+
+			.catalog {
+				position: absolute;
+				width: 100%;
+				top: 50px;
+				padding: 0px;
+				left: 0px;
+				margin: 0px;
+			}
+			.catalog .element {
+				width: 200px;
+				box-shadow: 0 0 5px grey;
+				margin-top: 10px;
+				margin-left: 10px;
+				display: inline-block;
+				border-radius: 3px;
+			}
+			.catalog .element .preview {
+				position: absolute;
+				margin-top: 0px;
+				margin-left: 0px;
+				border: 0px;
+				border-radius: 3px;
+				width: 200px;
+				height: 200px;
+			}
+			.catalog .element .search-query {
+				display: none;
+			}
+
+			.catalog .element .name {
+				color: black;
+
+				width: 100%;
+				margin-top: 210px;
+				left: 0px;
+				text-align: center;
+				font-size: 20px;
+				font-weight: 700;
+				font-family: "Segoe UI";
+				user-select: none;
+			}
+
+			.catalog .element .buy {
+				height: calc(30px - 4px);
+				background: #507CBA;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				line-height: 26px;
+				font-size: 16px;
+				font-family: "Segoe UI";
+				bottom: 0px;
+				position: relative;
+				text-align: center;
+				margin-top: 5px;
+				font-weight: 600;
+
+				border-bottom-right-radius: 3px;
+				border-bottom-left-radius: 3px;
+
+				color: white;
+				user-select: none;
+				cursor: pointer;
+			}
+			.bar .searcher .submit {
+				position: absolute;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				right: 3px;
+				height: calc(30px);
+				top: calc(50% - 15px);
+				border: 0;
+				font-family: "Segoe UI";
+				line-height: 26px;
+				outline: none;
+				border-radius: 3px;
+				background: rgba(255, 255, 255, 0.3);
+				font-weight: 700;
+				cursor: pointer;
+				user-select: none;
+			}
+			.bar .searcher .submit:hover {
+				background: rgba(255, 255, 255, 0.5);
+			}
+			.buyBox {
+				position: absolute;
+				top: 50px;
+				left: 0px;
+				display: none;
+				right: 0px;
+				bottom: 0px;
+				background: rgba(0, 0, 0, 0.8);
+				backdrop-filter: blur(5px);
+			}
+			.buyBox .box {
+				width: 700px;
+				height: 700px;
+				left: calc(50% - 350px);
+				top: calc(50% - 350px);
+				border-radius: 10px;
+				box-shadow: 0 0 10px black;
+				position: absolute;
+				background: rgba(255, 255, 255, 1);
+			}
+			.buyBox .box .title {
+				width: 100%;
+				font-family: "Segoe UI";
+				font-weight: 700;
+				font-size: 36px;
+				text-align: center;
+				position: absolute;
+				left: 0px;
+				user-select: none;
+				top: 10px;
+			}
+			.buyBox .box .product-name {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				user-select: none;
+				font-family: "Segoe UI";
+				font-weight: 500;
+				opacity: 0.5;
+				top: 60px;
+			}
+			.buyBox .box .image {
+				position: absolute;
+				top: 100px;
+				width: 300px;
+				z-index: 0;
+				height: 300px;
+				left: calc(50% - 150px);
+			}
+			.buyBox .box .price {
+				position: absolute;
+				bottom: 20px;
+				right: 20px;
+				left: 20px;
+				width: calc(100% - 40px);
+				text-align: center;
+				font-size: 40px;
+				font-weight: 400;
+				user-select: none;
+				font-family: "Segoe UI";
+			}
+			.buyBox .box .tags {
+				position: absolute;
+				top: 430px;
+				left: 30px;
+				right: 30px;
+				overflow: hidden;
+				height: 150px;
+				border-radius: 3px;
+			}
+			.buyBox .box .tags:before {
+				content: "Теги:";
+				margin-left: 20px;
+				margin-right: 20px;
+				transform: translateY(-100%);
+				z-index: 99;
+				top: 0px;
+				left: 10px;
+				color: black;
+				font-weight: 800;
+				font-family: "Segoe UI"
+			}
+			.buyBox .box .tags .tag {
+				display: inline-block;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background: rgba(0, 0, 0, 0.8);
+				color: white;
+				font-family: "Segoe UI";
+				margin-left: 10px;
+				user-select: none;
+				border-radius: 3px;
+				margin-bottom: 10px;
+			}
+
+			.buyBox .box .tags .bg {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 0px;
+				right: 0px;
+				top: 0px;
+				bottom: 0px;
+				background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 20%);
+			}
+
+			.buyBox .box .buyButton {
+				position: absolute;
+				bottom: 20px;
+				right: 20px;
+				padding-left: 15px;
+				padding-right: 15px;
+				padding-top: 5px;
+				padding-bottom: 8px;
+				background: #507CBA;
+				border-radius: 4px;
+				color: black;
+				font-size: 20px;
+				font-weight: 700;
+				color: white;
+				user-select: none;
+				cursor: pointer;
+				font-family: "Segoe UI";
+			}
+			.buyBox .box .cancel {
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				padding-left: 15px;
+				padding-right: 15px;
+				padding-top: 5px;
+				padding-bottom: 8px;
+				background: #507CBA;
+				border-radius: 4px;
+				color: black;
+				font-size: 20px;
+				font-weight: 700;
+				color: white;
+				user-select: none;
+				cursor: pointer;
+				font-family: "Segoe UI";
+
+			}
+
+		}
+
+
+	</style>
+
+	<script type="text/javascript">
+		
+		let queres = []
+
+	</script>
+
+</head>
+<body>
+
+	<div class="bar">
+		<div class="logo">
+			НеКинемТочкаНет
+		</div>
+
+		<div class="searcher">
+			<input type="text" class='input-search' placeholder="Поиск в магазине" onchange="getResult()">
+			<input type="submit" value="Поиск" class='submit' onclick="getResult()">
+		</div>
+	</div>
+
+	<div class="catalog">
+		
+		<div class="element">
+			<img class="preview" src="iphone_se_1.jpg">
+			<div class="name">iPhone SE 1</div>
+			<div class="buy" onclick="buyElement(this.parentElement)">Купить</div>
+			<input class='search-query' name='search' value='iphone:se:1:айфон:се:первый:старый:черный:купить:первого:поколения:черного:цвета:аппл:apple:апле'>
+
+			<input class='search-query' name='product-price' value='300'>
+		</div>
+		<div class="element">
+			<img class="preview" src="macbook_pro.jpg">
+			<div class="name">MacBook Pro Silver</div>
+			<div class="buy" onclick="buyElement(this.parentElement)">Купить</div>
+			<input class='search-query' name='search' value='mac:macbook:book:pro:silver:мак:макбук:макбоок:аппл:apple:апле:серебристый:ноутбук'>
+
+			<input class='search-query' name='product-price' value='1000'>
+		</div>
+		<div class="element">
+			<img class="preview" src="macbook_pro_grey.jpg">
+			<div class="name">MacBook Pro Grey</div>
+			<div class="buy" onclick="buyElement(this.parentElement)">Купить</div>
+			<input class='search-query' name='search' value='mac:macbook:book:pro:space:gray:мак:макбук:макбоок:аппл:apple:апле:серый:космос:ноутбук'>
+
+			<input class='search-query' name='product-price' value='1000'>
+		</div>
+		<div class="element">
+			<img class="preview" src="imac.jpg">
+			<div class="name">iMac</div>
+			<div class="buy" onclick="buyElement(this.parentElement)">Купить</div>
+			<input class='search-query' name='search' value='mac:imac:мак:аймак:моноблок:аппл:apple:апле:серый:космос'>
+
+			<input class='search-query' name='product-price' value='1200'>
+		</div>
+		
+		
+
+	</div>
+
+	<div class="buyBox">
+		<div class="box">
+			<div class="title">Купить</div>
+			<div class='product-name'>iPhone SE 1</div>
+			<div class="image" style="background: url(iphone_se_1.jpg) no-repeat; background-size: cover;"></div>
+			<div class="price">300$</div>
+			<div class="tags">
+
+				<div class='tag'>iphone</div>
+				<div class='tag'>se</div>
+				<div class='tag'>1</div>
+				<div class='tag'>айфон</div>
+				<div class='tag'>се</div>
+				<div class='tag'>первый</div>
+				<div class='tag'>старый</div>
+				<div class='tag'>черный</div>
+				<div class='tag'>купить</div>
+				<div class='tag'>первого</div>
+				<div class='tag'>поколения</div>
+				<div class='tag'>черного</div>
+				<div class='tag'>цвета</div>
+				<div class='tag'>аппл</div>
+				<div class='tag'>apple</div>
+				<div class='tag'>апле</div>
+
+				<div class="bg"></div>
+			</div>
+			<div class="buyButton">Купить</div>
+			<div class="cancel" onclick="this.parentElement.parentElement.style.display = 'none'">Отмена</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function buyElement(el) {
+			console.log(el)
+			let block = document.querySelector(".buyBox")
+			block.style.display = 'block'
+			block.querySelector(".product-name").innerHTML = el.querySelector(".name").innerHTML
+			block.querySelector('.image').style.background = "url(" + el.querySelector(".preview").src + ') no-repeat'
+			block.querySelector(".image").style.backgroundSize = "cover"
+
+			let tags = el.querySelector(".search-query[name='search']").value.split(":")
+			let html = ""
+			for (let i = 0; i < tags.length; i++) {
+				html += "<div class='tag'>"
+				html += tags[i]
+				html += "</div>\n"
+			}
+			html += "<div class='bg'></div>"
+
+			block.querySelector(".tags").innerHTML = html
+
+			block.querySelector(".price").innerHTML = el.querySelector('.search-query[name="product-price"]').value + '$'
+		}
+		window.addEventListener("DOMContentLoaded", ()=>{
+
+			let blocks = document.querySelectorAll(".catalog .element")
+
+			for (let i = 0; i < blocks.length; i++) {
+				let query = {}
+				query.block = blocks[i]
+				query.queres = blocks[i].querySelector(".search-query[name='search']").value.split(":")
+				queres.push(query)
+			}
+
+		})
+		function getResult() {
+
+				let query = document.querySelector(".bar .searcher .input-search").value
+
+				if (query == "") {
+
+					let blocks = document.querySelectorAll(".catalog .element")
+
+					for (let i = 0; i < blocks.length; i++) {
+						blocks[i].style.display = "inline-block"
+					}
+
+				} else {
+					let querys = queres
+
+					query = query.toLowerCase()
+
+					let alphabet = "ЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬQWERTYUIOPASDFGHJKLZXCVBNM1234567890 ";
+
+					alphabet = alphabet.toLowerCase()
+
+					alphabet = alphabet.split("")
+
+					let formatedquery = ""
+
+					for (let i = 0; i < query.length; i++) {
+
+						if (alphabet.indexOf(query[i]) != -1) {
+							formatedquery += query[i]
+						}
+
+					}
+
+
+					query = formatedquery.split(" ")
+
+					for (let i = 0; i < querys.length; i++) {
+						querys[i].percent = 1
+						querys[i].allQ = querys[i].queres.length
+						querys[i].finded = 0
+
+						for (let  o = 0; o < query.length; o++) {
+
+							if (querys[i].queres.indexOf(query[o]) != -1) {
+								querys[i].finded += 1
+							}
+
+						}
+
+						let oi = 100 / query.length
+
+						oi = oi * querys[i].finded
+
+						if (oi >= 50) {
+							querys[i].display = true	
+						} else {
+							querys[i].display = false
+						}
+
+						if (querys[i].display) {
+							querys[i].block.style.display = "inline-block"
+						} else {
+							querys[i].block.style.display = "none"
+						}
+					}
+
+				}
+
+
+			}
+	</script>
+
+</body>
+</html>
